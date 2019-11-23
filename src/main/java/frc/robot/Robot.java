@@ -11,7 +11,7 @@
   import edu.wpi.first.wpilibj.IterativeRobot;
   import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
   import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-  import frc.robot.subsystems.DriveSystem;
+  
   import edu.wpi.first.wpilibj.Talon;
   import edu.wpi.first.wpilibj.Joystick;
   import edu.wpi.first.wpilibj.buttons.*;
@@ -37,8 +37,7 @@
     //public static Talon frontLeft,frontRight,backLeft,backRight;
     public static DoubleSolenoid heightSolenoid, shooterSolenoid, wheelSolenoid;
     public static Timer timer;
-    public static Joystick joystick;
-    public static DriveSystem driveSys;
+  
     public static DifferentialDrive drive;
     public static boolean toggleOn = false;
     public static boolean togglePressed = false;
@@ -56,13 +55,11 @@
       m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
       m_chooser.addOption("My Auto", kCustomAuto);
       SmartDashboard.putData("Auto choices", m_chooser);
-      driveSys = new DriveSystem();
       oi = new OI();
       //frontLeft = new Talon(4);
       //frontRight = new Talon(1);
       //backLeft = new Talon(3);
       //backRight = new Talon(2);
-      joystick = new Joystick(0);
       shooterSolenoid = new DoubleSolenoid(4, 5); //Controls shooter height
       heightSolenoid = new DoubleSolenoid(2,3);   //The pistons that control the pressure in the motor
       wheelSolenoid = new DoubleSolenoid(0,1);   //The pistons that control the shooting
@@ -72,15 +69,15 @@
       
 
 
-      //heightSolenoid.set(DoubleSolenoid.Value.kReverse);
+      
   
       //shooterSolenoid.set(true,true);
       //shooterSolenoid.set(Value.kReverse);
       //shooterSolenoid.set(Value.kForward);
       
-     SpeedControllerGroup leftSide = new SpeedControllerGroup(RobotMap.leftFrontDriveMotor, RobotMap.leftRearDriveMotor);
-     SpeedControllerGroup rightSide = new SpeedControllerGroup(RobotMap.rightFrontDriveMotor, RobotMap.rightRearDriveMotor);
-    drive = new DifferentialDrive(leftSide, rightSide);
+    //  SpeedControllerGroup leftSide = new SpeedControllerGroup(RobotMap.leftFrontDriveMotor, RobotMap.leftRearDriveMotor);
+    //  SpeedControllerGroup rightSide = new SpeedControllerGroup(RobotMap.rightFrontDriveMotor, RobotMap.rightRearDriveMotor);
+    // drive = new DifferentialDrive(leftSide, rightSide);
 
 
       
@@ -101,6 +98,8 @@
    //   }else if(c_current < 120) {
    //     compressor.setClosedLoopControl(true);
    //   }
+    // boolean get = Robot.oi.ps4_Controller.getRawButtonPressed(4);
+    // System.out.println(get);
     }
 
     /**
@@ -117,11 +116,11 @@
     @Override
     public void autonomousInit() {
       m_autoSelected = m_chooser.getSelected();
-      drive.tankDrive(0.5, -0.5);
+      // drive.tankDrive(0.5, -0.5);
       
-      Timer.delay(5);
+      // Timer.delay(5);
 
-      drive.tankDrive(0,0);
+      // drive.tankDrive(0,0);
     
 
       //System.out.println("Auto selected: " + m_autoSelected);
@@ -149,42 +148,21 @@
      */
     @Override
     public void teleopPeriodic() {
-      double leftY = joystick.getRawAxis(1);
-      double rightY = joystick.getRawAxis(5);
-      Button button1 = new JoystickButton(joystick, 1);
-
-      //button2 = new JoystickButton(joystick, 2),
-      //button3 = new JoystickButton(joystick, 3);
-      /**
-      Command pistonsUpCommand = new Command(){
-
-        @Override
-        protected boolean isFinished() {
-          //heightSolenoid.set(DoubleSolenoid.Value.kReverse);
-          wheelSolenoid.set(DoubleSolenoid.Value.kReverse);
-          System.out.println("E");
-          return false;
-          
-        }
-      };
-       */
-      //button1.whenPressed(pistonsUpCommand);
-      button1.close();
-
-        if(toggleOn){
-          System.out.println("Yeet");
-              //Effect when turned on/ pressed
-        }else{
-              //Effect when turnng off
-        }
-
-      //shooterSolenoid = new DoubleSolenoid(4, 5); //Controls shooter height
-      //heightSolenoid = new DoubleSolenoid(2,3);   //The pistons that control the pressure in the motor
-      //wheelSolenoid = new DoubleSolenoid(0,1);   //The pistons that control the shooting
-      drive.tankDrive(leftY,rightY);
-
       
 
+      boolean kForward = Robot.oi.ps4_Controller.getRawButtonPressed(3);
+      boolean kReverse = Robot.oi.ps4_Controller.getRawButtonPressed(2);
+      // System.out.println(kForward);
+      // System.out.println(kReverse);
+     
+      if (kForward){
+        heightSolenoid.set(DoubleSolenoid.Value.kForward);
+        System.out.println("Circle pressed");
+      }
+      if (kReverse){
+        heightSolenoid.set(DoubleSolenoid.Value.kReverse);
+      System.out.println("X pressed");
+      }
     }
     /** public void updateToggle(){
       if(joystick.getRawButtonPressed(1)){
