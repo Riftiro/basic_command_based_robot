@@ -60,9 +60,9 @@
       //frontRight = new Talon(1);
       //backLeft = new Talon(3);
       //backRight = new Talon(2);
-      shooterSolenoid = new DoubleSolenoid(4, 5); //Controls shooter height
+      shooterSolenoid = new DoubleSolenoid(5,6); //Controls shooter height
       heightSolenoid = new DoubleSolenoid(2,3);   //The pistons that control the pressure in the motor
-      wheelSolenoid = new DoubleSolenoid(0,1);   //The pistons that control the shooting
+      gearboxSolenoid = new DoubleSolenoid(0,7);   //The pistons that control the shooting
       
       
 
@@ -152,6 +152,7 @@
 
       boolean kForward = Robot.oi.ps4_Controller.getRawButtonPressed(3);
       boolean kReverse = Robot.oi.ps4_Controller.getRawButtonPressed(2);
+      boolean firing = Robot.oi.square;
       // System.out.println(kForward);
       // System.out.println(kReverse);
      
@@ -163,6 +164,8 @@
         heightSolenoid.set(DoubleSolenoid.Value.kReverse);
       System.out.println("X pressed");
       }
+
+      if()
     }
     /** public void updateToggle(){
       if(joystick.getRawButtonPressed(1)){
