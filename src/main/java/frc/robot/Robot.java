@@ -35,7 +35,7 @@
     private static String m_autoSelected;
     private static final SendableChooser<String> m_chooser = new SendableChooser<>();
     //public static Talon frontLeft,frontRight,backLeft,backRight;
-    public static DoubleSolenoid heightSolenoid, shooterSolenoid, wheelSolenoid;
+    public static DoubleSolenoid heightSolenoid, shooterSolenoid, gearboxSolenoid;
     public static Timer timer;
   
     public static DifferentialDrive drive;
@@ -171,7 +171,13 @@
         if(hasFired == false){
           shooterSolenoid.set(DoubleSolenoid.Value.kForward);
           hasFired = true;
-        }else if(hasFked)
+          System.out.println(hasFired);
+        }else if(hasFired == true){
+          shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
+          hasFired = false;
+          System.out.println(hasFired);
+        }
+        System.out.println("Square pressed");
       }
     }
     /** public void updateToggle(){
