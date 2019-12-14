@@ -169,11 +169,11 @@
 
       if(firing){
         if(hasFired == false){
-          shooterSolenoid.set(DoubleSolenoid.Value.kForward);
+          shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
           hasFired = true;
           System.out.println(hasFired);
         }else if(hasFired == true){
-          shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
+          shooterSolenoid.set(DoubleSolenoid.Value.kForward);
           hasFired = false;
           System.out.println(hasFired);
         }
