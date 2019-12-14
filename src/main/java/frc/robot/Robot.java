@@ -152,7 +152,9 @@
 
       boolean kForward = Robot.oi.ps4_Controller.getRawButtonPressed(3);
       boolean kReverse = Robot.oi.ps4_Controller.getRawButtonPressed(2);
-      boolean firing = Robot.oi.square;
+      boolean firing = Robot.oi.ps4_Controller.getRawButtonPressed(1);
+
+      boolean hasFired = false;
       // System.out.println(kForward);
       // System.out.println(kReverse);
      
@@ -165,7 +167,12 @@
       System.out.println("X pressed");
       }
 
-      if()
+      if(firing){
+        if(hasFired == false){
+          shooterSolenoid.set(DoubleSolenoid.Value.kForward);
+          hasFired = true;
+        }else if(hasFked)
+      }
     }
     /** public void updateToggle(){
       if(joystick.getRawButtonPressed(1)){
