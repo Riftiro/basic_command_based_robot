@@ -150,14 +150,16 @@
     public void teleopPeriodic() {
       
 
-      boolean kForward = Robot.oi.ps4_Controller.getRawButtonPressed(3);
-      boolean kReverse = Robot.oi.ps4_Controller.getRawButtonPressed(2);
+      //boolean kForward = Robot.oi.ps4_Controller.getRawButtonPressed(3);
+      //boolean kReverse = Robot.oi.ps4_Controller.getRawButtonPressed(2);
       boolean firing = Robot.oi.ps4_Controller.getRawButtonPressed(1);
+      boolean changingHeight = Robot.oi.ps4_Controller.getRawButton(2);
 
       boolean hasFired = false;
+      boolean heightPosition = false;
       // System.out.println(kForward);
       // System.out.println(kReverse);
-     
+     /** 
       if (kForward){
         heightSolenoid.set(DoubleSolenoid.Value.kForward);
         System.out.println("Circle pressed");
@@ -165,15 +167,27 @@
       if (kReverse){
         heightSolenoid.set(DoubleSolenoid.Value.kReverse);
       System.out.println("X pressed");
+      }*/
+      if(changingHeight){
+        if(heightPosition == false){
+          heightSolenoid.set(DoubleSolenoid.Value.kForward);
+          heightPosition = true;
+          System.out.println(heightPosition);
+        }else if(heightPosition == true){
+          heightSolenoid.set(DoubleSolenoid.Value.kReverse);
+          heightPosition = false;
+          System.out.println(heightPosition);
+        }
+        System.out.println("X pressed");
       }
 
       if(firing){
         if(hasFired == false){
-          shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
+          shooterSolenoid.set(DoubleSolenoid.Value.kForward);
           hasFired = true;
           System.out.println(hasFired);
         }else if(hasFired == true){
-          shooterSolenoid.set(DoubleSolenoid.Value.kForward);
+          shooterSolenoid.set(DoubleSolenoid.Value.kReverse);
           hasFired = false;
           System.out.println(hasFired);
         }
